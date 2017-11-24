@@ -122,7 +122,6 @@ int citySearch(char name[], city *c, junction *root)
 			search = currentJunction->nextCity;
 			if(strcmp(search->name, initialCity) == 0) //checks to see if at original branch, if so exits
 			{
-				printf("City does not exist in map.\n");
 				return 0;
 			}
 		}
@@ -236,7 +235,7 @@ void printCityList(junction *root)
 * Get user input, and set start
 * and ending city pointers
 *********************************************/
-void userInput(junction *root, city *start, city *end) //root of the map, pointer to the starting city, pointer to the ending city
+void userInput(junction *root, city *start, city *end, Location eastWestMap[]) //root of the map, pointer to the starting city, pointer to the ending city
 {
 	char startingCity[MAX_LENGTH], endingCity[MAX_LENGTH];
 
@@ -250,11 +249,17 @@ void userInput(junction *root, city *start, city *end) //root of the map, pointe
 		{
 			printCityList(root);
 		}
-		else if(citySearch(startingCity, start, root) == 1) //if city exists in the map sets starting city and returns
+		else if(citySearch(startingCity, start, root) == 1 || inputCheck(startingCity, eastWestMap) == 1)//checks if city exists in the map, if true sets the starting city and returns
 		{
+			//will probably need to break this up into nested if/else if statements to set an indicator for which is sucessful
 			break;
 		}
+		else
+		{
+			printf("City does not exist in map.\n");
+		}
 	}
+
 	while(1) //get valid ending city
 	{
 		printf("Enter the destination city(or 'citylist' for a list of available cities): ");
@@ -269,10 +274,15 @@ void userInput(junction *root, city *start, city *end) //root of the map, pointe
 		{
 			printf("You're already there. Try another destination.\n");
 		}
-		else if(citySearch(endingCity, end, root) == 1)//checks if city exists in the map, if true sets the ending city and returns
+		else if(citySearch(endingCity, end, root) == 1 || inputCheck(endingCity, eastWestMap) == 1)//checks if city exists in the map, if true sets the ending city and returns
 		{
+			//same as above, will probably need to break this up
 			break;
 		}
+		 else
+        {
+            printf("City does not exist in map.\n");
+        }
 	}
 }
 

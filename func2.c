@@ -30,7 +30,7 @@ Location initializeMap(Location map[])
 }
 
 // Function which checks user input to make sure it is valid
-void inputCheck(char input[], Location Map[])//lookup struct name
+int inputCheck(char input[], Location Map[])//lookup struct name
 {
 	for(int i = 0; i < LOCATIONS; ++i)
 	{
@@ -41,72 +41,86 @@ void inputCheck(char input[], Location Map[])//lookup struct name
 }
 
 // Function which executes the search for route between two cities
-void printRoute(char *From, char *To, Location cities[]){
+void searchRoute(char *From, char *To, Location cities[]){
 	int east = 0, e = 0; //  0 implies that eastern side hasn't been traversed yet, 1 implies the opposite
   	int west = 0, w = 0; //  0 implies that western side hasn't been traversed yet, 1 implies the opposite
   	char route[LOCATIONS][MAXSTRING];  // This stores all the cities between origin and destination
-	int totalCities = 0; 
+	int totalCities = 0;
 	int destinationFound = 0; // 0 implies that destination hasn't been found yet, 1 implies the opposite 
   	Location *origin; // Origin
-	if(strcmp(To,From) == 0){
-        	destinationFound = 1;
-        	printf("\n You're at the destination, duh!\n");
-		printf("\n");
-        	return;
-	}
- 	for (int i = 0; i < LOCATIONS; i++){
-		if (strcmp(From, cities[i].name) == 0){
+
+ 	for (int i = 0; i < LOCATIONS; i++)
+	{
+		if (strcmp(From, cities[i].name) == 0)
+		{
         		origin = &cities[i];
         		break;
     		}
  	 }
 
-   	while(destinationFound == 0){
+   	while(destinationFound == 0)
+	{
      		Location *currentNode;
      		currentNode = origin;
 
-    		while(east == 0){
+    		while(east == 0)
+			{
       			strcpy(route[e], currentNode->name);
-			totalCities += 1;
-      			if (strcmp(currentNode->name, To) == 0){
+				totalCities += 1;
+
+				if (strcmp(currentNode->name, To) == 0)
+				{
         			destinationFound = 1;
         			break;
       			}
-      			if(currentNode->east == NULL){
+      			if(currentNode->east == NULL)
+				{
         			east = 1;
 				//Given destinationFound is 0, if it's an end node, this resets the route list
-        			if(destinationFound == 0){
-          				for(int a = 0; a < LOCATIONS; a++){
-            					for (int b = 0; b < MAXSTRING; b++){
-							route[a][b] = '\0';
-						}
+        			if(destinationFound == 0)
+					{
+          				for(int a = 0; a < LOCATIONS; a++)
+						{
+            				for (int b = 0; b < MAXSTRING; b++)
+							{
+								route[a][b] = '\0';
+							}
           				}
         			}
-				currentNode = origin;
-				totalCities = 0;
+
+					currentNode = origin;
+					totalCities = 0;
         			break;
       			}
+
       			currentNode = currentNode->east;
       			e += 1;
     		}
 
-    		while(west == 0 && destinationFound == 0){
+    		while(west == 0 && destinationFound == 0)
+			{
       			strcpy(route[w], currentNode->name);
-			totalCities += 1;
-      			if (strcmp(currentNode->name, To) == 0){
+				totalCities += 1;
+
+				if (strcmp(currentNode->name, To) == 0)
+				{
         			destinationFound = 1;
         			break;
       			}
-      			if(currentNode->west == NULL){
+
+				if(currentNode->west == NULL)
+				{
         			west = 1;
       			}
+
       			currentNode = currentNode->west;
       			w += 1;
     		}
    	}
 	printf("\n");
 	printf("Here is the route from %s to %s\n", From, To);
-	for(int z = 0; z <totalCities; z++){
+	for(int z = 0; z <totalCities; z++)
+	{
 		printf("%s    ",route[z]);
 	}
 	printf("\n");

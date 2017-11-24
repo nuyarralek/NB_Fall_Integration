@@ -5,7 +5,7 @@
 
 void main(void)
 {
-	//variables
+	//variables and initialization for group 3
 	city *start, *end; //s is starting city pointer, e is ending city pointer
 	junction *root;
 	STACK *route; //stack holding the route information
@@ -19,6 +19,11 @@ void main(void)
 	root->nextCity = NULL;
 	root->nextJunction = NULL;
 	createMap(root);
+	//variables and initialization for group 4
+	Location eastWestMap[LOCATIONS]; // An array of city nodes
+	char origin[MAXSTRING];
+	char destination[MAXSTRING];
+	initializeMap(eastWestMap);
 
 	//program introduction for user
 	printf("\n|-----------------------------------------------------------------|\n");
@@ -30,7 +35,7 @@ void main(void)
 	//run functions
 	while(cont != 'n')
 	{
-		userInput(root, start, end);
+		userInput(root, start, end, eastWestMap);
 		makePath(root, start, end, route);
 		printRoute(route, start, end);
 		while(1)
