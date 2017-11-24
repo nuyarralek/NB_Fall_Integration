@@ -3,6 +3,8 @@
 #include <stdlib.h>
 #include "definitions.h"
 
+//functions from Group 3
+
 /*************************************************************
 *createMap
 * loads in map from file

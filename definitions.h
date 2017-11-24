@@ -3,6 +3,8 @@
 
 #define FILES_TO_READ 2
 #define MAX_LENGTH 20
+#define MAXSTRING 15  //The maximum number of characters for a string
+#define LOCATIONS 12  //The number of cites on i26.
 
 typedef struct city { //stores city info
     char name[MAX_LENGTH];
@@ -18,6 +20,14 @@ typedef struct junction { //stores junction info
 	char direction[MAX_LENGTH];
     struct junction *nextJunction;
     } junction;
+
+typedef struct Location{ // location node
+        char name[MAXSTRING];
+        struct Location *east;
+        struct Location *west;
+        struct Location *north;
+        struct Location *south;
+}Location;
 
 typedef struct STACK_ELEMENT {
     char name[40];
