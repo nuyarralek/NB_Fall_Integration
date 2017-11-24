@@ -1,8 +1,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
-//#include "definitions.h"
-#include "functions.h"
+#include "definitions.h"
 
 void main(void)
 {
